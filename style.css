@@ -1,0 +1,182 @@
+.atasan{
+    color: aliceblue;
+    background-color: rgb(67, 149, 149);
+    border: solid;
+}
+
+.content{
+    background-color: rgb(102, 169, 251);
+    min-height: 100vh;
+    width: 100%;
+    margin-left: 250px;
+    padding: 16px;
+    
+}
+
+.offcanvas-title {
+    margin-bottom: 0;
+    line-height: var(--bs-offcanvas-title-line-height);
+    color: aliceblue;
+}
+
+.offcanvas-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--bs-offcanvas-padding-y) var(--bs-offcanvas-padding-x);
+    background-color: #1a73d1;
+}
+
+.offcanvas-body {
+    flex-grow: 1;
+    padding: var(--bs-offcanvas-padding-y) var(--bs-offcanvas-padding-x);
+    overflow-y: auto;
+    background-color: rgb(172 175 253);
+}
+
+.modal-body {
+    color: black;
+}
+
+.h1, h1 {
+    font-size: calc(1.375rem + 1.5vw);
+    filter:drop-shadow(16px 7px 8px #e30fff);
+}
+
+.center-label {
+    text-align: center;
+}
+
+/* table */
+
+.kode_obat{
+    padding-left: 200px;
+}
+
+.box1{
+    background-color : rgb(11, 132, 224);
+    color: aliceblue;
+    box-shadow: 10px 10px 7px #f435ff;
+    padding: 25px;
+}   
+
+.row{
+    align-items: center;
+}
+
+/* Peringtan warna */
+
+
+/* Font blm jadi */
+.custom-font {
+    font-size: 15px;
+}
+
+.td {
+     font-size: 13px;
+}
+
+.dataTables_wrapper .dataTables_length select {
+    color: aliceblue;
+    border: 1px solid aliceblue;
+    border-radius: 3px;
+    padding: 4px;
+}
+.dataTables_wrapper{
+    padding: 15px;
+    margin-bottom: auto;
+    color:aliceblue;
+}
+
+
+
+.btn{
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    border: 2px solid rgb(27, 218, 218);
+    color: #a3daff;
+    border-radius: 5px;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 2px 2px 1px #f435ff;
+}
+
+.button:hover {
+    background-color: #fff;
+    color: #fff;
+}
+
+
+.button:active {
+    transform: translateY(2px);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+
+.buttonedit{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.centered-text {
+    text-align: center;
+}
+
+.btn1{
+    color: aliceblue;
+}
+
+/* Transaksi*/
+
+.modal-header {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--bs-modal-header-padding);
+    border-bottom: var(--bs-modal-header-border-width) solid var(--bs-modal-header-border-color);
+    border-top-left-radius: var(--bs-modal-inner-border-radius);
+    border-top-right-radius: var(--bs-modal-inner-border-radius);
+    background-color: rgb(219 121 255);
+}
+
+.modal-body {
+    position: relative;
+    flex: 1 1 auto;
+    padding: var(--bs-modal-padding);
+    background-color: rgb(48, 151, 255);
+}
+
+
+/* tombol tambah */
+.btn-success {
+    display: inline-block;
+text-align: center;
+text-decoration: none;
+cursor: pointer;
+border-radius: 5px;
+transition: all 0.3s ease-in-out;
+position: relative;
+width: 100%;
+height: 100%;
+}
+
+.text-end {
+    text-align: right!important;
+    padding-bottom: 15px;
+}
+
+
+/* #### FORM EDIT #### */
+
+.btn-success1 {
+    display: inline-block;
+text-align: center;
+text-decoration: none;
+cursor: pointer;
+border-radius: 5px;
+transition: all 0.3s ease-in-out;
+}
