@@ -1,5 +1,5 @@
 <?php
-require 'function.php';
+require_once 'function.php';
 ?>
 
 
@@ -62,12 +62,8 @@ require 'function.php';
             <div class="col-7">
                 <h1>Transaksi Admin</h1>
             </div>
-            <div class="col-3">
-                <?php
-                // Logika PHP untuk menampilkan waktu
-                date_default_timezone_set('Asia/Jakarta');
-                $current_time = date("H:i:s");
-                echo "<p>Waktu saat ini: $current_time</p>"; ?>
+            <div class="col-3" id="clock">
+                
             </div>
         </div>
 
@@ -143,63 +139,16 @@ require 'function.php';
 
 
                 <!-- Button trigger modal -->
-                <button type="button" class="btn btn-primary ms-3" data-bs-toggle="modal" data-bs-target="#transaksi">
+                <a href="transaksi_detail.php" class="btn btn-primary ms-3" >
                     Tambah transaksi
-                </button>
-                <!-- Modal -->
-                <form action="detail.php">
-                    <div class="modal fade" id="transaksi" tabindex="-1" aria-labelledby="exampleModalLabel"
-                        aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h1 class="modal-title fs-5 text-dark" id="transaksi">Tambah transaksi</h1>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <div class="text-dark">
-
-                                        <div class="mb-2" style="width:250px">
-                                            <label for="kodetransaksi" class="form-label">kode transaksi :</label>
-                                            <input type="text" class="form-control" id="kodetransaksi"
-                                                placeholder="kode transaksi">
-                                        </div>
-
-                                        <div class="mb-2" style="width:250px">
-                                            <label for="tanggaltransaksi" class="form-label">Tanggal transaksi :</label>
-                                            <input type="text" class="form-control" id="tanggaltransaksi"
-                                                placeholder="tanggal transaksi">
-                                        </div>
-
-                                        <div class="mb-2" style="width:250px">
-                                            <label for="obat" class="form-label">Obat :</label>
-                                            <input type="text" class="form-control" id="obat" placeholder="obat">
-                                        </div>
-
-                                        <div class="mb-2" style="width:250px">
-                                            <label for="jumlah" class="form-label">Jumlah :</label>
-                                            <input type="text" class="form-control" id="jumlah" placeholder="jumlah">
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary"
-                                        data-bs-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary">Save changes</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </form>
+                </a>
 
                 <form method="post">
                     <button class="btn btn1 me-2 mb-3 mt-3 btn-sm" style="background : rgb(4, 237, 128);" type="submit"
                         name="export">Export to Excel</button>
                 </form>
 
-                <table class="table table-dark table-striped inner-table">
+                <table class="table table-dark table-striped inner-table" id="example">
                     <thead>
                         <div class="kode_obat">
                             <tr class="text-center custom-Font">
@@ -245,10 +194,12 @@ require 'function.php';
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
         integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
         crossorigin="anonymous"></script>
+    <script src="script.js"></script>
     <script>
         $(document).ready(function () {
             $('#example').DataTable();
         });
+
     </script>
 
 </body>

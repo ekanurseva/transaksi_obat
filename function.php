@@ -424,6 +424,48 @@ function input_transaksi($data)
 
         return mysqli_affected_rows($conn);
     }
+}
 
+function getKodeTransaksi() {
+        
+    $query = "SELECT * FROM transaksi";
+    $kode = "";
 
+    $jumlah = jumlah_data($query);
+    $tanggal = date("Ymd");
+
+    if($jumlah == 0) {
+        $kode = "T-". $tanggal . "-1";
+    } else {
+        for($i = 1; $i <= $jumlah; $i++) { 
+            $kode_transaksi = "T-". $tanggal . "-" . $i;
+            $totalP = jumlah_data("SELECT * FROM transaksi WHERE kode_transaksi = '$kode_transaksi'");
+
+            if ($totalP == 0) {
+                $kode = "T-". $tanggal . "-" . $i;
+                break;
+            } else {
+                $angka = $jumlah + 1;
+                $kode = "T-". $tanggal . "-" . $angka;
+            }
+        };
+    }
+
+    return $kode;
+}
+
+function getUser() {
+    if(isset($_COOKIE['DataObat'])) {
+        $iduser = dekripsi($_COOKIE['DataObat']);
+        $data_user = query("SELECT * FROM user WHERE iduser = $iduser")[0];
+
+    } else {
+        echo "
+            <script>
+                document.location.href='logout.php';
+            </script>
+        ";
+    }
+
+    return $data_user;
 }

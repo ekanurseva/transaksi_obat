@@ -137,67 +137,26 @@ require 'function.php';
 
 
                 <!-- Button trigger modal -->
-                <button type="button" class="btn btn-primary ms-3" data-bs-toggle="modal" data-bs-target="#transaksi">
+                <a href="transaksi_detail.php" class="btn btn-primary ms-3" >
                     Tambah transaksi
-                </button>
-                <!-- Modal -->
-                <form action="detail.php">
-                    <div class="modal fade" id="transaksi" tabindex="-1" aria-labelledby="exampleModalLabel"
-                        aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h1 class="modal-title fs-5 text-dark" id="transaksi">Tambah transaksi</h1>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <div class="text-dark">
+                </a>
 
-                                        <div class="mb-2" style="width:250px">
-                                            <label for="kodetransaksi" class="form-label">kode transaksi :</label>
-                                            <input type="text" class="form-control" id="kodetransaksi"
-                                                placeholder="kode transaksi">
-                                        </div>
-
-                                        <div class="mb-2" style="width:250px">
-                                            <label for="tanggaltransaksi" class="form-label">Tanggal transaksi :</label>
-                                            <input type="text" class="form-control" id="tanggaltransaksi"
-                                                placeholder="tanggal transaksi">
-                                        </div>
-
-                                        <div class="mb-2" style="width:250px">
-                                            <label for="obat" class="form-label">Obat :</label>
-                                            <input type="text" class="form-control" id="obat" placeholder="obat">
-                                        </div>
-
-                                        <div class="mb-2" style="width:250px">
-                                            <label for="jumlah" class="form-label">Jumlah :</label>
-                                            <input type="text" class="form-control" id="jumlah" placeholder="jumlah">
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary"
-                                        data-bs-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary">Save changes</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <form method="post">
+                    <button class="btn btn1 me-2 mb-3 mt-3 btn-sm" style="background : rgb(4, 237, 128);" type="submit"
+                        name="export">Export to Excel</button>
                 </form>
-
 
                 <table class="table table-dark table-striped inner-table" id="example">
                     <thead>
-                        <tr class="text-center custom-Font">
-                            <th scope="col">No</th>
-                            <th scope="col">Kode transaksi</th>
-                            <th scope="col">Tanggal transaksi</th>
-                            <th scope="col">Subtotal</th>
-                            <th scope="col">Alat</th>
-                        </tr>
+                        <div class="kode_obat">
+                            <tr class="text-center custom-Font">
+                                <th scope="col">No</th>
+                                <th scope="col">Kode transaksi</th>
+                                <th scope="col">Tanggal transaksi</th>
+                                <th scope="col">Subtotal</th>
+                                <th scope="col">Alat</th>
+                            </tr>
+                        </div>
                     </thead>
                     <tbody>
                         <tr class="text-center">
@@ -206,7 +165,7 @@ require 'function.php';
                             <td>11/01/2024</td>
                             <td>Rp 9.000</td>
                             <td>
-                                <a class="btn btn-info text-black btn-sm" href="detailtransaksi.php">detail</a>
+                                <a class="btn btn-info text-black btn-sm" href="detail.php">detail</a>
                             </td>
                         </tr>
                         <tr class="text-center">
@@ -215,15 +174,12 @@ require 'function.php';
                             <td>11/01/2024</td>
                             <td>Rp 20.000</td>
                             <td>
-                                <a class="btn btn-info text-black btn-sm" href="detailtransaksi.php">detail</a>
+                                <a class="btn btn-info text-black btn-sm" href="detail.php">detail</a>
                             </td>
                         </tr>
-                    </tbody>
-                    <form method="post">
-                        <button class="btn btn1 me-2 mb-3 mt-3 btn-sm" style="background : rgb(4, 237, 128);"
-                            type="submit" name="export">Export to Excel</button>
-                    </form>
+
                 </table>
+
             </div>
         </div>
     </div>

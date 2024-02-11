@@ -17,7 +17,8 @@ if (isset($_POST["submit"])) {
         //password_verify() untuk mengecek apakah sebuah password itu sama atau tidak dengan hash nya
         //parameternya yaitu string yang belum diacak dan string yang sudah diacak
         if (password_verify($password, $row["password"])) {
-
+            setcookie('DataObat', enkripsi($row['iduser']), time() + 14400);
+            
             if ($row["level"] === "admin") {
                 echo "<script>
                   document.location.href='Main.php';
