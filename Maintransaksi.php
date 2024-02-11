@@ -56,13 +56,7 @@ require 'function.php';
             <div class="col-7">
                 <h1>Transaksi Kasir</h1>
             </div>
-            <div class="col-3">
-                <?php
-                // Logika PHP untuk menampilkan waktu
-                date_default_timezone_set('Asia/Jakarta');
-                $current_time = date("H:i:s");
-                echo "<p>Waktu saat ini: $current_time</p>"; ?>
-            </div>
+            <div class="col-3" id="clock"></div>
         </div>
 
 
@@ -192,6 +186,7 @@ require 'function.php';
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
         integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
         crossorigin="anonymous"></script>
+    <script src="script.js"></script>
     <script>
         $(document).ready(function () {
             $('#example').DataTable();

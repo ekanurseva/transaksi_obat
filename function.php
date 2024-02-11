@@ -348,39 +348,7 @@ function cek_transaksi()
         exit;
     }
 }
-function kode_transaksi()
-{
-    global $koneksi;
 
-    $query = "SELECT * FROM transaksi";
-    $kode = "";
-
-    $jumlah = jumlah_data($query);
-    $tanggal = date("Ymd");
-
-    if ($jumlah == 0) {
-        $kode = "T-" . $tanggal . "-1";
-    } else {
-        for ($i = 1; $i <= $jumlah; $i++) {
-            $kode_transaksi = "T-" . $tanggal . "-" . $i;
-            $query1 = "SELECT COUNT(*) as total FROM transaksi WHERE kode_transaksi = '$kode_transaksi'";
-            $result = mysqli_query($koneksi, $query1);
-            $row = mysqli_fetch_assoc($result);
-            $totalP = $row['total'];
-
-            if ($totalP == 0) {
-                $kode = "T-" . $tanggal . "-" . $i;
-                break;
-            } else {
-                $angka = $jumlah + 1;
-                $kode = "T-" . $tanggal . "-" . $angka;
-            }
-        }
-        ;
-    }
-
-    return $kode;
-}
 
 function input_transaksi($data)
 {
@@ -468,4 +436,70 @@ function getUser() {
     }
 
     return $data_user;
+}
+
+function doTransaksi($data) {
+    global $koneksi;
+
+    $kode_transaksi = htmlspecialchars($data['kode_transaksi']);
+
+    $data_obat = query("SELECT * FROM obat ORDER BY idkategori");
+
+    $iduser = dekripsi($_COOKIE['DataObat']);
+
+    $cek_0 = 0;
+    foreach($data_obat as $daob) {
+        if($data[$daob['kode_obat']] != 0) {
+            if($daob['stok'] < $data[$daob['kode_obat']]) {
+                echo "
+                    <script>
+                        alert('Stok untuk " . $daob['nama_obat'] . " tersisa " . $daob['stok'] . ", sedangkan yang diminta " . $data[$daob['kode_obat']] . "');
+                        document.location.href='transaksi_detail.php';
+                    </script>
+                ";
+                exit();
+            }
+            $cek_0++;
+        }
+    }
+
+    if($cek_0 == 0) {
+        echo "
+            <script>
+                alert('Harap mengisi jumlah, minimal untuk 1 obat');
+                document.location.href='transaksi_detail.php';
+            </script>
+        ";
+        exit();
+    }
+
+    var_dump($cek_0);
+
+    mysqli_query($koneksi, "INSERT INTO transaksi VALUES (NULL, CURRENT_TIMESTAMP(), '$kode_transaksi', '$iduser')");
+
+    $data_transaksi = query("SELECT * FROM transaksi WHERE kode_transaksi = '$kode_transaksi'")[0];
+    $id_transaksi = $data_transaksi['idtransaksi'];
+
+    $berhasil = 0;
+    foreach($data_obat as $dabat) {
+        if($data[$dabat['kode_obat']] != 0) {
+            $id_obat = $dabat['idobat'];
+            $harga = $dabat['harga'];
+            $qty = $data[$dabat['kode_obat']];
+            $subtotal = $qty * $harga;
+
+            $stok = $dabat['stok'] - $qty;
+
+            mysqli_query($koneksi, "INSERT INTO detail_transaksi VALUES (NULL, '$qty', '$subtotal', '$id_transaksi', '$id_obat')");
+
+            $query = "UPDATE obat SET 
+                stok = '$stok'
+            WHERE idobat = '$id_obat'";
+            mysqli_query($koneksi, $query);
+
+            $berhasil++;
+        }
+    }
+
+    return $berhasil;
 }

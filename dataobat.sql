@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Waktu pembuatan: 11 Feb 2024 pada 00.11
--- Versi server: 10.4.32-MariaDB
--- Versi PHP: 8.2.12
+-- Host: localhost
+-- Waktu pembuatan: 11 Feb 2024 pada 12.54
+-- Versi server: 10.4.22-MariaDB
+-- Versi PHP: 8.0.15
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -33,7 +33,7 @@ CREATE TABLE `detail_transaksi` (
   `subtotal` double NOT NULL,
   `transaksi_idtransaksi` int(11) NOT NULL,
   `obat_idobat` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -44,7 +44,7 @@ CREATE TABLE `detail_transaksi` (
 CREATE TABLE `kategori_obat` (
   `idkategori` int(11) NOT NULL,
   `kategori` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `kategori_obat`
@@ -76,7 +76,7 @@ CREATE TABLE `obat` (
   `expired` date NOT NULL,
   `kemasan` varchar(50) NOT NULL,
   `idkategori` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `obat`
@@ -102,10 +102,10 @@ INSERT INTO `obat` (`idobat`, `kode_obat`, `nama_obat`, `deskripsi`, `dosis`, `h
 
 CREATE TABLE `transaksi` (
   `idtransaksi` int(11) NOT NULL,
-  `tanggal` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `tanggal` timestamp NOT NULL DEFAULT current_timestamp(),
   `kode_transaksi` varchar(45) NOT NULL,
   `user_iduser` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -120,7 +120,7 @@ CREATE TABLE `user` (
   `username` varchar(45) NOT NULL,
   `password` varchar(100) NOT NULL,
   `level` varchar(40) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `user`
@@ -129,7 +129,8 @@ CREATE TABLE `user` (
 INSERT INTO `user` (`iduser`, `nama`, `email`, `username`, `password`, `level`) VALUES
 (4, 'Diwa', 'diwa@gmail.com', 'diwa', '$2y$10$q/RVY66g0TAVE3I5zcclrOI3Ae4frcWCxDNi.wUnGsAITtTFkO.EK', 'kasir'),
 (5, 'Diwe', 'lafadzdhiwa69@gmail.com', 'diwe', '$2y$10$z/SSjG2b7QPt.cszdccnLOtS5Wnr50KPjk8bV5w746KVRFbp8Jh6G', 'admin'),
-(7, 'Eka', 'ekanursevas@gmail.com', 'eka', '$2y$10$iBdKQmfIZcJZS2B40PryZOsBQVC8ACbp5j7CDpxjB7JrbgpfIUteG', 'kasir');
+(7, 'Eka', 'ekanursevas@gmail.com', 'eka', '$2y$10$iBdKQmfIZcJZS2B40PryZOsBQVC8ACbp5j7CDpxjB7JrbgpfIUteG', 'kasir'),
+(8, 'Fillah Zaki Alhaqi', 'fillah.alhaqi11@gmail.com', 'fillah21', '$2y$10$qg8JniQo19jd3Sx8wSFi1u7K2BmiIFDJlJcR5ATDt0XpxXmy4Rc7i', 'admin');
 
 --
 -- Indexes for dumped tables
@@ -160,8 +161,7 @@ ALTER TABLE `obat`
 -- Indeks untuk tabel `transaksi`
 --
 ALTER TABLE `transaksi`
-  ADD PRIMARY KEY (`idtransaksi`),
-  ADD KEY `user_iduser` (`user_iduser`);
+  ADD PRIMARY KEY (`idtransaksi`);
 
 --
 -- Indeks untuk tabel `user`
@@ -192,10 +192,16 @@ ALTER TABLE `obat`
   MODIFY `idobat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
+-- AUTO_INCREMENT untuk tabel `transaksi`
+--
+ALTER TABLE `transaksi`
+  MODIFY `idtransaksi` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT untuk tabel `user`
 --
 ALTER TABLE `user`
-  MODIFY `iduser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `iduser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
@@ -205,20 +211,14 @@ ALTER TABLE `user`
 -- Ketidakleluasaan untuk tabel `detail_transaksi`
 --
 ALTER TABLE `detail_transaksi`
-  ADD CONSTRAINT `detail_transaksi_ibfk_1` FOREIGN KEY (`obat_idobat`) REFERENCES `obat` (`idobat`),
-  ADD CONSTRAINT `detail_transaksi_ibfk_2` FOREIGN KEY (`transaksi_idtransaksi`) REFERENCES `transaksi` (`idtransaksi`);
+  ADD CONSTRAINT `detail_transaksi_ibfk_1` FOREIGN KEY (`obat_idobat`) REFERENCES `obat` (`idobat`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `detail_transaksi_ibfk_2` FOREIGN KEY (`transaksi_idtransaksi`) REFERENCES `transaksi` (`idtransaksi`) ON UPDATE CASCADE;
 
 --
 -- Ketidakleluasaan untuk tabel `obat`
 --
 ALTER TABLE `obat`
   ADD CONSTRAINT `obat_ibfk_1` FOREIGN KEY (`idkategori`) REFERENCES `kategori_obat` (`idkategori`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Ketidakleluasaan untuk tabel `transaksi`
---
-ALTER TABLE `transaksi`
-  ADD CONSTRAINT `transaksi_ibfk_1` FOREIGN KEY (`user_iduser`) REFERENCES `user` (`iduser`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
