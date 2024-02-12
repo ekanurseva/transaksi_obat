@@ -503,3 +503,57 @@ function doTransaksi($data) {
 
     return $berhasil;
 }
+
+function edit_detail_transaksi($data) {
+    global $koneksi;
+
+    $iddetail_transaksi = htmlspecialchars($data['iddetail_transaksi']);
+    $obat_idobat = htmlspecialchars($data['obat_idobat']);
+    $oldqty = htmlspecialchars($data['oldqty']);
+    $qty = htmlspecialchars($data['qty']);
+    $berhasil = 0;  
+
+    if($qty == "" || $qty == 0) {
+        echo "
+            <script>
+                alert('Qty tidak boleh kosong atau 0');
+                document.location.href='Editdetailadmin.php?id=" . enkripsi($iddetail_transaksi) . "';
+            </script>
+        ";
+        exit();
+    }
+
+    $data_obat = query("SELECT * FROM obat WHERE idobat = $obat_idobat")[0];
+
+    $qty_total = $oldqty + $data_obat['stok'];
+
+    if($qty > $qty_total) {
+        echo "
+            <script>
+                alert('Stok untuk " . $data_obat['nama_obat'] . " tersisa " . $qty_total . ", sedangkan yang diminta " . $qty . "');
+                document.location.href='Editdetailadmin.php?id=" . enkripsi($iddetail_transaksi) . "';
+            </script>
+        ";
+        exit();
+    }
+
+    $subtotal = $qty * $data_obat['harga'];
+    $stok = $qty_total - $qty;
+
+    $query = "UPDATE obat SET 
+                stok = '$stok'
+              WHERE idobat = '$obat_idobat'";
+    mysqli_query($koneksi, $query);
+
+    $berhasil++;
+
+    $query = "UPDATE detail_transaksi SET 
+                qty = '$qty',
+                subtotal = '$subtotal'
+              WHERE iddetail_transaksi = '$iddetail_transaksi'";
+    mysqli_query($koneksi, $query);
+
+    $berhasil++;
+
+    return $berhasil;
+}

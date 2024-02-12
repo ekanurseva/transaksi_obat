@@ -1,5 +1,7 @@
 <?php
-require_once 'function.php';
+    require_once 'function.php';
+
+    $data_transaksi = query("SELECT * FROM transaksi ORDER BY tanggal ASC");
 ?>
 
 
@@ -161,24 +163,35 @@ require_once 'function.php';
                         </div>
                     </thead>
                     <tbody>
-                        <tr class="text-center">
-                            <th scope="row">1</th>
-                            <th scope="col">1111</th>
-                            <td>11/01/2024</td>
-                            <td>Rp 9.000</td>
-                            <td>
-                                <a class="btn btn-info text-black btn-sm" href="detail.php">detail</a>
-                            </td>
-                        </tr>
-                        <tr class="text-center">
-                            <th scope="row">2</th>
-                            <th scope="col">2222</th>
-                            <td>11/01/2024</td>
-                            <td>Rp 20.000</td>
-                            <td>
-                                <a class="btn btn-info text-black btn-sm" href="detail.php">detail</a>
-                            </td>
-                        </tr>
+                        <?php 
+                            $i = 1;
+                            foreach($data_transaksi as $trans) :
+                                $subtotal = 0;
+                                $idtransaksi = $trans['idtransaksi'];
+
+                                $tanggal = date('d/m/Y | H:i:s', strtotime($trans['tanggal']));
+
+                                $data_detail = query("SELECT * FROM detail_transaksi WHERE transaksi_idtransaksi = $idtransaksi");
+
+                                foreach($data_detail as $detail) {
+                                    $subtotal += $detail['subtotal'];
+                                }
+
+                        ?>
+                            <tr class="text-center">
+                                <th scope="row"><?= $i; ?></th>
+                                <th scope="col"><?= $trans['kode_transaksi']; ?></th>
+                                <td><?= $tanggal; ?></td>
+                                <td>Rp <?= number_format($subtotal, 0, ',', '.'); ?></td>
+                                <td>
+                                    <a class="btn btn-info text-black btn-sm" href="detail.php?id=<?= enkripsi($trans['idtransaksi']); ?>">detail</a>
+                                </td>
+                            </tr>
+                        <?php  
+                            $i++;
+                            endforeach;
+                        ?>
+                    </tbody>
 
                 </table>
 

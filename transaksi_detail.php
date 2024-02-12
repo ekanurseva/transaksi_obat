@@ -73,17 +73,24 @@
             </div>
             <div class="offcanvas-body">
                 <div class="mt-1">
-                    <a href="user.php" class="btn btn-danger">Data User</a>
+                    <?php if($data_user['level'] == "admin") : ?>
+                        <a href="user.php" class="btn btn-danger">Data User</a>
 
-                    <div class="mt-2">
-                        <a href="Main.php" class="btn btn-danger">Data Obat</a>
-                        <div class="mt-3">
-                            <a href="Transaksi.php" class="btn btn-danger">Transaksi</a>
-                            <div class="mt-4">
-                                <a href="Logout.php" class="btn btn-danger">Logout</a>
+                        <div class="mt-2">
+                            <a href="Main.php" class="btn btn-danger">Data Obat</a>
+                            <div class="mt-3">
+                                <a href="Transaksi.php" class="btn btn-danger">Transaksi</a>
+                                <div class="mt-4">
+                                    <a href="Logout.php" class="btn btn-danger">Logout</a>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    <?php else : ?>
+                        <a href="Transaksi.php" class="btn btn-danger">Transaksi</a>
+                        <div class="mt-2">
+                            <a href="Logout.php" class="btn btn-danger">Logout</a>
+                        </div>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
