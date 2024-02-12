@@ -145,10 +145,9 @@
                     Tambah transaksi
                 </a>
 
-                <form method="post">
-                    <button class="btn btn1 me-2 mb-3 mt-3 btn-sm" style="background : rgb(4, 237, 128);" type="submit"
-                        name="export">Export to Excel</button>
-                </form>
+                <div>
+                    <a class="btn btn1 me-2 mb-3 mt-3 btn-sm" style="background : rgb(4, 237, 128);" href="laporan-excel.php">Export to Excel</a>
+                </div>
 
                 <table class="table table-dark table-striped inner-table" id="example">
                     <thead>
