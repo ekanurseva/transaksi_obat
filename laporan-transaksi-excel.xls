@@ -1,0 +1,172 @@
+<p align="center" style="font-weight:bold;font-size:16pt">LAPORAN TRANSAKSI PENJUALAN</p>
+
+<style>
+    table {
+        text-align: center;
+    }
+
+    td {
+        vertical-align: middle;
+        text-align: center;
+    }
+</style>
+
+<table border="1" style="text-align: center;">
+    <tr>
+        <th width="50">No</th>
+        <th width="250">Tanggal</th>
+        <th width="270">Nama Obat</th>
+        <th width="80">Jumlah</th>
+        <th width="100">Harga</th>
+        <th width="100">Total</th>
+        <th width="150">Total Transaksi</th>
+    </tr>
+            <tr>
+            <td rowspan="3">1</td>
+            <td rowspan="3">13/02/2024 | 09:42:23</td>
+            <td>
+                Vitamin C            </td>
+            <td style="text-align: center;">
+                1            </td>
+            <td style="text-align: right;">
+                20.000            </td>
+            <td style="text-align: right;">
+                20.000            </td>
+            <td rowspan="3">140.000            </td>
+        </tr>
+                        <tr>
+                    <td>
+                        Suplemen Zink                    </td>
+                    <td style="text-align: center;">
+                        3                    </td>
+                    <td style="text-align: right;">
+                        15.000                    </td>
+                    <td style="text-align: right;">
+                        45.000                    </td>
+                </tr>
+
+                                <tr>
+                    <td>
+                        Amoxicillin                    </td>
+                    <td style="text-align: center;">
+                        5                    </td>
+                    <td style="text-align: right;">
+                        15.000                    </td>
+                    <td style="text-align: right;">
+                        75.000                    </td>
+                </tr>
+
+                        <tr>
+            <td rowspan="3">2</td>
+            <td rowspan="3">13/02/2024 | 09:42:53</td>
+            <td>
+                Suplemen Omega-3            </td>
+            <td style="text-align: center;">
+                6            </td>
+            <td style="text-align: right;">
+                35.000            </td>
+            <td style="text-align: right;">
+                210.000            </td>
+            <td rowspan="3">252.000            </td>
+        </tr>
+                        <tr>
+                    <td>
+                        Suplemen Zink                    </td>
+                    <td style="text-align: center;">
+                        2                    </td>
+                    <td style="text-align: right;">
+                        15.000                    </td>
+                    <td style="text-align: right;">
+                        30.000                    </td>
+                </tr>
+
+                                <tr>
+                    <td>
+                        Simvastatin                    </td>
+                    <td style="text-align: center;">
+                        1                    </td>
+                    <td style="text-align: right;">
+                        12.000                    </td>
+                    <td style="text-align: right;">
+                        12.000                    </td>
+                </tr>
+
+                        <tr>
+            <td rowspan="2">3</td>
+            <td rowspan="2">13/02/2024 | 09:54:52</td>
+            <td>
+                Vitamin C            </td>
+            <td style="text-align: center;">
+                10            </td>
+            <td style="text-align: right;">
+                20.000            </td>
+            <td style="text-align: right;">
+                200.000            </td>
+            <td rowspan="2">305.000            </td>
+        </tr>
+                        <tr>
+                    <td>
+                        Suplemen Zink                    </td>
+                    <td style="text-align: center;">
+                        7                    </td>
+                    <td style="text-align: right;">
+                        15.000                    </td>
+                    <td style="text-align: right;">
+                        105.000                    </td>
+                </tr>
+
+                        <tr>
+            <td rowspan="2">4</td>
+            <td rowspan="2">13/02/2024 | 09:56:31</td>
+            <td>
+                Naproksen            </td>
+            <td style="text-align: center;">
+                10            </td>
+            <td style="text-align: right;">
+                10.000            </td>
+            <td style="text-align: right;">
+                100.000            </td>
+            <td rowspan="2">148.000            </td>
+        </tr>
+                        <tr>
+                    <td>
+                        Parasetamol                    </td>
+                    <td style="text-align: center;">
+                        12                    </td>
+                    <td style="text-align: right;">
+                        4.000                    </td>
+                    <td style="text-align: right;">
+                        48.000                    </td>
+                </tr>
+
+                        <tr>
+            <td rowspan="1">5</td>
+            <td rowspan="1">13/02/2024 | 10:08:11</td>
+            <td>
+                Ibuprofen            </td>
+            <td style="text-align: center;">
+                90            </td>
+            <td style="text-align: right;">
+                8.000            </td>
+            <td style="text-align: right;">
+                720.000            </td>
+            <td rowspan="1">720.000            </td>
+        </tr>
+                <tr>
+            <td rowspan="1">6</td>
+            <td rowspan="1">13/02/2024 | 10:09:55</td>
+            <td>
+                Diphenhydramine            </td>
+            <td style="text-align: center;">
+                3            </td>
+            <td style="text-align: right;">
+                8.000            </td>
+            <td style="text-align: right;">
+                24.000            </td>
+            <td rowspan="1">24.000            </td>
+        </tr>
+        </table>
+
+<p align="center">
+    <input type="button" value="Export Excel" onclick="window.open('laporan-transaksi-excel.php')">
+</p>
