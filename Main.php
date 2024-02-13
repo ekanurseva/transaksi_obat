@@ -94,12 +94,8 @@ $obat = query("SELECT * FROM obat");
       <div class="col-7">
         <h1>Data Obat Admin</h1>
       </div>
-      <div class="col-3">
-        <?php
-        // Logika PHP untuk menampilkan waktu
-        date_default_timezone_set('Asia/Jakarta');
-        $current_time = date("H:i:s");
-        echo "<p>Waktu saat ini: $current_time</p>"; ?>
+      <div class="col-3" id="clock">
+
       </div>
     </div>
 
@@ -277,40 +273,41 @@ $obat = query("SELECT * FROM obat");
               <?php $j = 1; foreach ($obat as $o):
                 ?>
                 <tr class="text-center">
-                  <th scope="row">
+                  <td scope="row">
                     <?= $j; ?>
-                  </th>
-                  <th scope="col">
+                  </td>
+                  <td scope="col">
                     <?= $o['kode_obat']; ?>
-                  </th>
-                  <th scope="col">
+                  </td>
+                  <td scope="col">
                     <?= $o['nama_obat']; ?>
-                  </th>
-                  <th scope="col">
+                  </td>
+                  <td scope="col" style="font-size: 12.5px;">
                     <?= $o['deskripsi']; ?>
-                  </th>
-                  <th scope="col">
+                  </td>
+                  <td scope="col">
                     <?= $o['dosis']; ?>
-                  </th>
-                  <th scope="col">
-                    <?= $o['harga']; ?>
-                  </th>
-                  <th scope="col">
+                  </td>
+                  <td scope="col">
+                    Rp
+                    <?= number_format($o['harga'], 0, ',', '.'); ?>
+                  </td>
+                  <td scope="col">
                     <?= $o['stok']; ?>
-                  </th>
-                  <th scope="col">
+                  </td>
+                  <td scope="col">
                     <?= $o['expired']; ?>
-                  </th>
-                  <th scope="col">
+                  </td>
+                  <td scope="col">
                     <?= $o['kemasan']; ?>
-                  </th>
+                  </td>
                   <?php
                   $idkategori = $o['idkategori'];
                   $nama_kategori = query("SELECT kategori FROM kategori_obat WHERE idkategori = $idkategori")[0];
                   ?>
-                  <th>
+                  <td>
                     <?= $nama_kategori['kategori']; ?>
-                  </th>
+                  </td>
                   <td>
                     <a class="btn btn-primary btn-sm" href="Edit.php?id= <?= $o['idobat']; ?>">edit</a>
                     <a href="delete_obat.php?id=<?= $o['idobat']; ?>" class="btn btn-sm btn-danger"
@@ -340,6 +337,8 @@ $obat = query("SELECT * FROM obat");
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
     integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
     crossorigin="anonymous"></script>
+
+  <script src="script.js"></script>
   <script>
     $(document).ready(function () {
       $('#example').DataTable();

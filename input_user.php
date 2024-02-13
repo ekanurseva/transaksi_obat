@@ -22,6 +22,11 @@ if (isset($_POST["input"])) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    crossorigin="anonymous"></script>
   <title>Daftar</title>
   <link rel="stylesheet" href="Daftar.css"> <!-- Jangan lupa tambahkan stylesheet sesuai kebutuhan -->
 </head>
@@ -45,20 +50,20 @@ if (isset($_POST["input"])) {
       <label for="confirm_password">Confirm Password:</label>
       <input type="password" name="password2" required>
 
-      <div class="form-check form-check-inline text-white row">
-        <div class="col-sm-2">
-          <input class="form-check-input" type="radio" name="level" id="user" value="kasir">
+      <div class="row text-white ms-2 mb-2 mt-1">
+        <div class="col-sm-4 form-check">
+          <input class="form-check-input" style="border: 1px solid black;" type="radio" name="role" id="admin"
+            value="admin" checked>
+          <label class="form-check-label" for="admin">
+            Admin
+          </label>
         </div>
-        <div class="col-sm-5">
-          <label class="form-check-label" for="user">Kasir</label>
-        </div>
-      </div>
-      <div class="form-check form-check-inline text-white row">
-        <div class="col-sm-2">
-          <input class="form-check-input" type="radio" name="level" id="admin" value="admin">
-        </div>
-        <div class="col-sm-5">
-          <label class="form-check-label" for="admin">Admin</label>
+        <div class="col-sm-4 form-check">
+          <input class="form-check-input" style="border: 1px solid black;" type="radio" name="role" id="kasir"
+            value="kasir">
+          <label class="form-check-label" for="kasir">
+            Kasir
+          </label>
         </div>
       </div>
 

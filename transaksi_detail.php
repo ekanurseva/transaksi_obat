@@ -1,41 +1,41 @@
 <?php
-    require_once 'function.php';
+require_once 'function.php';
 
-    $obat = query("SELECT * FROM obat ORDER BY idkategori");
-    $kode_transaksi = getKodeTransaksi();
+$obat = query("SELECT * FROM obat ORDER BY idkategori");
+$kode_transaksi = getKodeTransaksi();
 
-    $data_user = getUser();
+$data_user = getUser();
 
-    if(isset($_POST['submit'])) {
-        if(doTransaksi($_POST) > 0) {
-            echo "
+if (isset($_POST['submit'])) {
+    if (doTransaksi($_POST) > 0) {
+        echo "
                 <script>
                     alert('Transaksi Berhasil');
                 </script>
             ";
 
-            if($data_user['level'] == 'admin') {
-                echo "
+        if ($data_user['level'] == 'admin') {
+            echo "
                     <script>
                         document.location.href='Transaksi.php';
                     </script>
                 ";
-            } else {
-                echo "
+        } else {
+            echo "
                     <script>
                         document.location.href='Maintransaksi.php';
                     </script>
                 ";
-            }
-        } else {
-            echo "
+        }
+    } else {
+        echo "
                 <script>
                     alert('Transaksi Gagal');
                     document.location.href='transaksi_detail.php';
                 </script>
             ";
-        }
     }
+}
 ?>
 
 
@@ -73,7 +73,7 @@
             </div>
             <div class="offcanvas-body">
                 <div class="mt-1">
-                    <?php if($data_user['level'] == "admin") : ?>
+                    <?php if ($data_user['level'] == "admin"): ?>
                         <a href="user.php" class="btn btn-danger">Data User</a>
 
                         <div class="mt-2">
@@ -85,7 +85,7 @@
                                 </div>
                             </div>
                         </div>
-                    <?php else : ?>
+                    <?php else: ?>
                         <a href="Transaksi.php" class="btn btn-danger">Transaksi</a>
                         <div class="mt-2">
                             <a href="Logout.php" class="btn btn-danger">Logout</a>
@@ -107,7 +107,7 @@
                 <h1>Transaksi Detail</h1>
             </div>
             <div class="col-3" id="clock">
-                
+
             </div>
         </div>
 
@@ -115,28 +115,31 @@
 
         <div class="contents">
             <div class="box1">
-                <h5 class="mb-3">Tulis jumlah obat yang ingin di beli, jika tidak ingin membeli obat tertentu, biarkan 0</h5>
+                <h5 class="mb-3">Tulis jumlah obat yang ingin di beli, jika tidak ingin membeli obat tertentu, biarkan 0
+                </h5>
                 <form method="post" action="">
                     <div class="row mb-3">
                         <label for="kode_transaksi" class="col-sm-2 col-form-label">Kode Transaksi</label>
 
-                        <div class="col-sm-10">
-                            <input type="text" min="0" step="1" class="form-control" id="kode_transaksi" value="<?= $kode_transaksi; ?>" name="kode_transaksi" readonly>
+                        <div class="col-sm-7">
+                            <input type="text" min="0" step="1" class="form-control" id="kode_transaksi"
+                                value="<?= $kode_transaksi; ?>" name="kode_transaksi" readonly>
                         </div>
                     </div>
-                    <?php foreach($obat as $o) : ?>
+                    <?php foreach ($obat as $o): ?>
                         <div class="row mb-3">
                             <label for="<?= $o['kode_obat']; ?>" class="col-sm-2 col-form-label"><?= $o['nama_obat']; ?></label>
 
-                            <div class="col-sm-10">
-                                <input type="number" min="0" step="1" class="form-control" id="<?= $o['kode_obat']; ?>" value="0" name="<?= $o['kode_obat']; ?>">
+                            <div class="col-sm-7">
+                                <input type="number" min="0" step="1" class="form-control" id="<?= $o['kode_obat']; ?>"
+                                    value="0" name="<?= $o['kode_obat']; ?>">
                             </div>
                         </div>
                     <?php endforeach; ?>
 
-                    <?php if($data_user['level'] == "admin") : ?>
+                    <?php if ($data_user['level'] == "admin"): ?>
                         <a href="Transaksi.php" class="btn btn-secondary me-3">Kembali</a>
-                    <?php else : ?> 
+                    <?php else: ?>
                         <a href="Maintransaksi.php" class="btn btn-secondary me-3">Kembali</a>
                     <?php endif; ?>
                     <button type="submit" class="btn btn-primary" name="submit">Submit</button>

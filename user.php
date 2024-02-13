@@ -11,8 +11,11 @@ $data = query("SELECT * FROM user");
 <html lang="en">
 
 <head>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User</title>
@@ -30,7 +33,8 @@ $data = query("SELECT * FROM user");
     <div class="main-container">
         <!-- Sidebar -->
 
-        <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+        <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample"
+            aria-labelledby="offcanvasExampleLabel">
             <div class="offcanvas-header">
                 <h5 class="offcanvas-title" id="offcanvasExampleLabel">Profile</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -53,19 +57,16 @@ $data = query("SELECT * FROM user");
         <div class="content m-0 atasan">
             <div class="row">
                 <div class="col-1">
-                    <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+                    <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas"
+                        data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
                         <i class="bi bi-list"></i>
                     </button>
                 </div>
                 <div class="col-7">
                     <h1>User</h1>
                 </div>
-                <div class="col-3">
-                    <?php
-                    // Logika PHP untuk menampilkan waktu
-                    date_default_timezone_set('Asia/Jakarta');
-                    $current_time = date("H:i:s");
-                    echo "<p>Waktu saat ini: $current_time</p>"; ?>
+                <div class="col-3" id="clock">
+
                 </div>
             </div>
 
@@ -89,8 +90,8 @@ $data = query("SELECT * FROM user");
                         </thead>
                         <tbody>
                             <?php $i = 1;
-                            foreach ($data as $d) :
-                            ?>
+                            foreach ($data as $d):
+                                ?>
                                 <tr>
                                     <th scope="row">
                                         <?= $i; ?>
@@ -108,13 +109,15 @@ $data = query("SELECT * FROM user");
                                         <?= $d['level']; ?>
                                     </td>
                                     <td>
-                                        <a class="btn btn-primary btn-sm" href="Edituser.php?id= <?= $d['iduser']; ?>">edit</a>
-                                        <a href="delete_user.php?id=<?= $d['iduser']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin ingin menghapus data?')">
+                                        <a class="btn btn-primary btn-sm"
+                                            href="Edituser.php?id= <?= $d['iduser']; ?>">edit</a>
+                                        <a href="delete_user.php?id=<?= $d['iduser']; ?>" class="btn btn-sm btn-danger"
+                                            onclick="return confirm('Apakah anda yakin ingin menghapus data?')">
                                             Hapus
                                         </a>
                                     </td>
                                 </tr>
-                            <?php
+                                <?php
                                 $i++;
                             endforeach;
                             ?>
@@ -122,16 +125,20 @@ $data = query("SELECT * FROM user");
                     </table>
                 </div>
             </div>
-            <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+            <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+                integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+                crossorigin="anonymous"></script>
             <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
             <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+                integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+                crossorigin="anonymous"></script>
             <script>
-                $(document).ready(function() {
+                $(document).ready(function () {
                     $('#example').DataTable();
                 });
             </script>
-
+            <script src="script.js"></script>
 
 </body>
 
