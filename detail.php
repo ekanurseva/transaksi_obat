@@ -1,9 +1,11 @@
-<?php 
-    require_once 'function.php';
+<?php
+require_once 'function.php';
 
-    $id_transaksi = dekripsi($_GET['id']);
-    $data_user = getUser();
-    $data_detail = query("SELECT * FROM detail_transaksi WHERE transaksi_idtransaksi = $id_transaksi");
+$id_transaksi = dekripsi($_GET['id']);
+$data_user = getUser();
+$data_detail = query("SELECT * FROM detail_transaksi WHERE transaksi_idtransaksi = $id_transaksi");
+
+$data_transaksi = query("SELECT * FROM transaksi WHERE idtransaksi = $id_transaksi")[0];
 ?>
 
 <!DOCTYPE html>
@@ -28,17 +30,19 @@
         <!-- Isi halaman menu lainnya di sini -->
 
         <div class="container btn-tambah ms-2 ">
-            <?php if($data_user['level'] == "admin") : ?>
+            <?php if ($data_user['level'] == "admin"): ?>
                 <a class="btn btn-success1" href="Transaksi.php">Kembali</a>
-            <?php else : ?> 
+            <?php else: ?>
                 <a class="btn btn-success1" href="Maintransaksi.php">Kembali</a>
             <?php endif; ?>
-            
+
         </div>
 
 
         <div class="ms-5 mt-3" style="width:1020px">
-            <label for="exampleFormControlInput1" class="form-label">Kode Transaksi</label>
+            <label for="exampleFormControlInput1" class="form-label">
+                <?= $data_transaksi['kode_transaksi']; ?>
+            </label>
             <table class="table table-dark table-striped inner-table" id="transactionTable">
                 <tfoot>
                     <table class="table table-dark table-striped" id="example">
@@ -56,30 +60,47 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php 
-                                $i = 1;
-                                $total = 0;
-                                foreach($data_detail as $detail) :
-                                    $id_obat = $detail['obat_idobat'];
-                                    $total += $detail['subtotal'];
-                                    $data_obat = query("SELECT * FROM obat WHERE idobat = $id_obat")[0];
-                            ?>
+                            <?php
+                            $i = 1;
+                            $total = 0;
+                            foreach ($data_detail as $detail):
+                                $id_obat = $detail['obat_idobat'];
+                                $total += $detail['subtotal'];
+                                $data_obat = query("SELECT * FROM obat WHERE idobat = $id_obat")[0];
+                                ?>
                                 <tr class="text-center">
-                                    <th scope="row"><?= $i; ?></th>
-                                    <td><?= $data_obat['kode_obat']; ?></td>
-                                    <td><?= $data_obat['nama_obat']; ?></td>
-                                    <td><?= date('d/m/Y', strtotime($data_obat['expired'])); ?></td>
-                                    <td><?= $data_obat['kemasan']; ?></td>
-                                    <td>Rp <?= number_format($data_obat['harga'], 0, ',', '.'); ?></td>
-                                    <td><?= $detail['qty']; ?></td>
-                                    <td class="jumlah">Rp <?= number_format($detail['subtotal'], 0, ',', '.'); ?></td>
+                                    <th scope="row">
+                                        <?= $i; ?>
+                                    </th>
                                     <td>
-                                        <a class="btn btn-primary btn-sm" href="Editdetailadmin.php?id=<?= enkripsi($detail['iddetail_transaksi']); ?>">edit</a>
+                                        <?= $data_obat['kode_obat']; ?>
+                                    </td>
+                                    <td>
+                                        <?= $data_obat['nama_obat']; ?>
+                                    </td>
+                                    <td>
+                                        <?= date('d/m/Y', strtotime($data_obat['expired'])); ?>
+                                    </td>
+                                    <td>
+                                        <?= $data_obat['kemasan']; ?>
+                                    </td>
+                                    <td>Rp
+                                        <?= number_format($data_obat['harga'], 0, ',', '.'); ?>
+                                    </td>
+                                    <td>
+                                        <?= $detail['qty']; ?>
+                                    </td>
+                                    <td class="jumlah">Rp
+                                        <?= number_format($detail['subtotal'], 0, ',', '.'); ?>
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-primary btn-sm"
+                                            href="Editdetailadmin.php?id=<?= enkripsi($detail['iddetail_transaksi']); ?>">edit</a>
                                     </td>
                                 </tr>
-                            <?php 
+                                <?php
                                 $i++;
-                                endforeach;
+                            endforeach;
                             ?>
                         </tbody>
                         <!-- Kolom Total Transaksi -->
@@ -87,7 +108,9 @@
                             <th colspan="5" scope="col">Total Transaksi</th>
                             <th scope="col"></th>
                             <th scope="col"></th>
-                            <th id="totalTransaksi" scope="col">Rp <?= number_format($total, 0, ',', '.'); ?></th>
+                            <th id="totalTransaksi" scope="col">Rp
+                                <?= number_format($total, 0, ',', '.'); ?>
+                            </th>
                             <th scope="col"></th>
                         </tr>
                     </table>
@@ -115,8 +138,11 @@
         </script> -->
         <script src="script.js"></script>
 
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+            integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+            crossorigin="anonymous"></script>
 </body>
 
 </html>
