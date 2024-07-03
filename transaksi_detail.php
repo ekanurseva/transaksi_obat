@@ -1,7 +1,7 @@
 <?php
 require_once 'function.php';
 
-$obat = query("SELECT * FROM obat ORDER BY idkategori");
+$obat = query("SELECT * FROM obat");
 $kode_transaksi = getKodeTransaksi();
 
 $data_user = getUser();
@@ -86,7 +86,7 @@ if (isset($_POST['submit'])) {
                             </div>
                         </div>
                     <?php else: ?>
-                        <a href="Transaksi.php" class="btn btn-danger">Transaksi</a>
+                        <a href="Maintransaksi.php" class="btn btn-danger">Transaksi</a>
                         <div class="mt-2">
                             <a href="Logout.php" class="btn btn-danger">Logout</a>
                         </div>
@@ -104,7 +104,7 @@ if (isset($_POST['submit'])) {
                 </button>
             </div>
             <div class="col-7">
-                <h1>Transaksi Detail</h1>
+                <h1>APOTEK 99 | Transaksi Detail</h1>
             </div>
             <div class="col-3" id="clock">
 

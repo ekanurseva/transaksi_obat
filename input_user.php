@@ -32,6 +32,12 @@ if (isset($_POST["input"])) {
 </head>
 
 <body>
+
+  <video id="video-background" autoplay muted loop>
+    <source src="Medic.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+
   <div class="register-container">
     <h2>Daftar</h2>
     <form action="" method="post">
@@ -52,14 +58,14 @@ if (isset($_POST["input"])) {
 
       <div class="row text-white ms-2 mb-2 mt-1">
         <div class="col-sm-4 form-check">
-          <input class="form-check-input" style="border: 1px solid black;" type="radio" name="role" id="admin"
+          <input class="form-check-input" style="border: 1px solid black;" type="radio" name="level" id="admin"
             value="admin" checked>
           <label class="form-check-label" for="admin">
             Admin
           </label>
         </div>
         <div class="col-sm-4 form-check">
-          <input class="form-check-input" style="border: 1px solid black;" type="radio" name="role" id="kasir"
+          <input class="form-check-input" style="border: 1px solid black;" type="radio" name="level" id="kasir"
             value="kasir">
           <label class="form-check-label" for="kasir">
             Kasir
@@ -68,6 +74,7 @@ if (isset($_POST["input"])) {
       </div>
 
       <button type="submit" name="input">Daftar</button>
+      <a class="btn btn-success1 btn-sm" href="user.php">Kembali</a>
     </form>
   </div>
 

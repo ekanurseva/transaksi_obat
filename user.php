@@ -63,7 +63,7 @@ $data = query("SELECT * FROM user");
                     </button>
                 </div>
                 <div class="col-7">
-                    <h1>User</h1>
+                    <h1>APOTEK 99 | User</h1>
                 </div>
                 <div class="col-3" id="clock">
 

@@ -1,7 +1,7 @@
 <?php
-    require_once 'function.php';
+require_once 'function.php';
 
-    $data_transaksi = query("SELECT * FROM transaksi ORDER BY tanggal ASC");
+$data_transaksi = query("SELECT * FROM transaksi ORDER BY tanggal ASC");
 ?>
 
 
@@ -62,10 +62,10 @@
                 </button>
             </div>
             <div class="col-7">
-                <h1>Transaksi Admin</h1>
+                <h1>APOTEK 99 | Transaksi Admin</h1>
             </div>
             <div class="col-3" id="clock">
-                
+
             </div>
         </div>
 
@@ -73,80 +73,14 @@
 
         <div class="contents">
             <div class="box1">
-
-                <!-- Modal -->
-                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                    aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h1 class="modal-title fs-5 text-dark" id="exampleModalLabel">Tambah Kolom</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <div class="text-dark">
-                                    <div class="mb-2" style="width:250px">
-                                        <select class="form-select" aria-label="Default select example">
-                                            <option selected>Kategori</option>
-                                            <option value="1">Antibiotic</option>
-                                            <option value="2">Vitamin & Suplemen</option>
-                                            <option value="3">Analgesik (Pereda Nyeri)</option>
-                                            <option value="3">Antipiretik (Penurun Demam)</option>
-                                            <option value="herbal">Obat Herbal</option>
-                                        </select>
-                                        <label for="exampleFormControlInput1" class="form-label">kode obat :</label>
-                                        <input type="kode_obat" class="form-control" id="kode_obat"
-                                            placeholder="kode obat">
-                                    </div>
-                                    <div class="mb-2" style="width:250px">
-                                        <label for="exampleFormControlInput1" class="form-label">nama obat :</label>
-                                        <input type="nama_obat" class="form-control" id="nama_obat"
-                                            placeholder="nama obat">
-                                    </div>
-                                    <div class="mb-2" style="width:250px">
-                                        <label for="exampleFormControlInput1" class="form-label">deskripsi :</label>
-                                        <input type="deskripsi" class="form-control" id="deskripsi"
-                                            placeholder="deskripsi">
-                                    </div>
-                                    <div class="mb-2" style="width:100px">
-                                        <label for="exampleFormControlInput1" class="form-label">dosis :</label>
-                                        <input type="dosis" class="form-control" id="dosis" placeholder="dosis">
-                                    </div>
-                                    <div class="mb-2" style="width:250px">
-                                        <label for="exampleFormControlInput1" class="form-label">harga :</label>
-                                        <input type="harga" class="form-control" id="kharga" placeholder="harga">
-                                    </div>
-                                    <div class="mb-2" style="width:250px">
-                                        <label for="exampleFormControlInput1" class="form-label">stok :</label>
-                                        <input type="stok" class="form-control" id="stok" placeholder="stok">
-                                    </div>
-                                    <div class="mb-2" style="width:250px">
-                                        <label for="exampleFormControlInput1" class="form-label">expired :</label>
-                                        <input type="expired" class="form-control" id="expired" placeholder="expired">
-                                    </div>
-                                    <div class="mb-2" style="width:250px">
-                                        <label for="exampleFormControlInput1" class="form-label">kemasan :</label>
-                                        <input type="kemasan" class="form-control" id="kemasan" placeholder="kemasan">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Save changes</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
                 <!-- Button trigger modal -->
-                <a href="transaksi_detail.php" class="btn btn-primary ms-3" >
+                <a href="transaksi_detail.php" class="btn btn-primary ms-3">
                     Tambah transaksi
                 </a>
 
                 <div>
-                    <a class="btn btn1 me-2 mb-3 mt-3 btn-sm" style="background : rgb(4, 237, 128);" href="laporan-excel.php">Export to Excel</a>
+                    <a class="btn btn1 me-2 mb-3 mt-3 btn-sm" style="background : rgb(4, 237, 128);"
+                        href="laporan-excel.php">Export to Excel</a>
                 </div>
 
                 <table class="table table-dark table-striped inner-table" id="example">
@@ -162,33 +96,40 @@
                         </div>
                     </thead>
                     <tbody>
-                        <?php 
-                            $i = 1;
-                            foreach($data_transaksi as $trans) :
-                                $subtotal = 0;
-                                $idtransaksi = $trans['idtransaksi'];
+                        <?php
+                        $i = 1;
+                        foreach ($data_transaksi as $trans):
+                            $subtotal = 0;
+                            $idtransaksi = $trans['idtransaksi'];
 
-                                $tanggal = date('d/m/Y | H:i:s', strtotime($trans['tanggal']));
+                            $tanggal = date('d/m/Y | H:i:s', strtotime($trans['tanggal']));
 
-                                $data_detail = query("SELECT * FROM detail_transaksi WHERE transaksi_idtransaksi = $idtransaksi");
+                            $data_detail = query("SELECT * FROM detail_transaksi WHERE transaksi_idtransaksi = $idtransaksi"); foreach ($data_detail as $detail) {
+                                $subtotal += $detail['subtotal'];
+                            }
 
-                                foreach($data_detail as $detail) {
-                                    $subtotal += $detail['subtotal'];
-                                }
-
-                        ?>
+                            ?>
                             <tr class="text-center">
-                                <th scope="row"><?= $i; ?></th>
-                                <th scope="col"><?= $trans['kode_transaksi']; ?></th>
-                                <td><?= $tanggal; ?></td>
-                                <td>Rp <?= number_format($subtotal, 0, ',', '.'); ?></td>
+                                <th scope="row">
+                                    <?= $i; ?>
+                                </th>
+                                <th scope="col">
+                                    <?= $trans['kode_transaksi']; ?>
+                                </th>
                                 <td>
-                                    <a class="btn btn-info text-black btn-sm" href="detail.php?id=<?= enkripsi($trans['idtransaksi']); ?>">detail</a>
+                                    <?= $tanggal; ?>
+                                </td>
+                                <td>Rp
+                                    <?= number_format($subtotal, 0, ',', '.'); ?>
+                                </td>
+                                <td>
+                                    <a class="btn btn-info text-black btn-sm"
+                                        href="detail.php?id=<?= enkripsi($trans['idtransaksi']); ?>">detail</a>
                                 </td>
                             </tr>
-                        <?php  
+                            <?php
                             $i++;
-                            endforeach;
+                        endforeach;
                         ?>
                     </tbody>
 

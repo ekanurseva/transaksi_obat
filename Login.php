@@ -18,7 +18,7 @@ if (isset($_POST["submit"])) {
         //parameternya yaitu string yang belum diacak dan string yang sudah diacak
         if (password_verify($password, $row["password"])) {
             setcookie('DataObat', enkripsi($row['iduser']), time() + 14400);
-            
+
             if ($row["level"] === "admin") {
                 echo "<script>
                   document.location.href='Main.php';
@@ -129,7 +129,8 @@ if (isset($_POST["submit"])) {
 
     <!-- Content -->
     <div class="content">
-        <h1>Selamat Datang </h1>
+        <h3>Selamat Datang</h3>
+        <h1>APOTEK 99</h1>
     </div>
 </body>
 

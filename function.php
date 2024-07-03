@@ -194,59 +194,6 @@ function hapus_pengguna($iduser)
 }
 // CRUD PENGGUNA
 
-
-// CRUD KATEGORI OBAT
-function input_kategori($data_user)
-{
-    global $koneksi;
-    $kategori = $data_user["kategori"];
-
-    $result = mysqli_query($koneksi, "SELECT kategori FROM kategori_obat WHERE kategori = 'kategori'") or die(mysqli_error($koneksi));
-    if (mysqli_fetch_assoc($result)) {
-        echo "<script>
-        alert('Nama Kategori Sudah Digunakan');
-        </script>";
-        return false;
-    }
-
-    mysqli_query($koneksi, "INSERT INTO kategori_obat VALUES (NULL, '$kategori')");
-
-    return mysqli_affected_rows($koneksi);
-}
-
-function edit_kategori($data)
-{
-    global $koneksi;
-    $idkategori = $data['idkategori'];
-    $oldkategori = $data['oldkategori'];
-    $kategori = $data['kategori'];
-
-    if ($oldkategori !== $kategori) {
-        $result = mysqli_query($koneksi, "SELECT kategori FROM kategori_obat WHERE kategori = '$kategori'");
-
-        if (mysqli_fetch_assoc($result)) {
-            echo "<script>
-                alert('kategori sudah ada, silahkan gunakan kategori lain');
-            </script>";
-            return false;
-        }
-    }
-
-    $query = "UPDATE kategori_obat SET kategori = '$kategori' WHERE idkategori = '$idkategori'";
-    mysqli_query($koneksi, $query);
-
-    return mysqli_affected_rows($koneksi);
-}
-
-function hapus_kategori($id)
-{
-    global $koneksi;
-    mysqli_query($koneksi, "DELETE FROM kategori_obat WHERE idkategori = $id");
-
-    return mysqli_affected_rows($koneksi);
-}
-// CRUD KATEGORI OBAT SELESAI
-
 // CRUD OBAT
 function input_obat($data)
 {
@@ -259,7 +206,7 @@ function input_obat($data)
     $stok = $data["stok"];
     $expired = $data["expired"];
     $kemasan = $data["kemasan"];
-    $idkategori = $data["idkategori"];
+    $kategori = $data["kategori"];
 
     $result = mysqli_query($koneksi, "SELECT nama_obat FROM obat WHERE nama_obat = 'namaobat'") or die(mysqli_error($koneksi));
     if (mysqli_fetch_assoc($result)) {
@@ -269,7 +216,7 @@ function input_obat($data)
         return false;
     }
 
-    mysqli_query($koneksi, "INSERT INTO obat VALUES (NULL, '$kodeobat', '$namaobat','$deskripsi','$dosis','$harga','$stok','$expired','$kemasan','$idkategori')");
+    mysqli_query($koneksi, "INSERT INTO obat VALUES (NULL, '$kodeobat', '$namaobat','$deskripsi','$dosis','$harga','$stok','$expired','$kemasan','$kategori')");
 
     return mysqli_affected_rows($koneksi);
 }
@@ -287,7 +234,7 @@ function edit_obat($data)
     $stok = $data["stok"];
     $expired = $data["expired"];
     $kemasan = $data["kemasan"];
-    $idkategori = $data["idkategori"];
+    $kategori = $data["kategori"];
 
     if ($oldobat !== $namaobat) {
         $result = mysqli_query($koneksi, "SELECT nama_obat FROM obat WHERE nama_obat = '$namaobat'");
@@ -308,7 +255,7 @@ function edit_obat($data)
         stok = '$stok',
         expired = '$expired',
         kemasan = '$kemasan',
-        idkategori = '$idkategori'
+        kategori = '$kategori'
     WHERE idobat = '$id'";
     mysqli_query($koneksi, $query);
 
@@ -394,36 +341,39 @@ function input_transaksi($data)
     }
 }
 
-function getKodeTransaksi() {
-        
+function getKodeTransaksi()
+{
+
     $query = "SELECT * FROM transaksi";
     $kode = "";
 
     $jumlah = jumlah_data($query);
     $tanggal = date("Ymd");
 
-    if($jumlah == 0) {
-        $kode = "T-". $tanggal . "-1";
+    if ($jumlah == 0) {
+        $kode = "T-" . $tanggal . "-1";
     } else {
-        for($i = 1; $i <= $jumlah; $i++) { 
-            $kode_transaksi = "T-". $tanggal . "-" . $i;
+        for ($i = 1; $i <= $jumlah; $i++) {
+            $kode_transaksi = "T-" . $tanggal . "-" . $i;
             $totalP = jumlah_data("SELECT * FROM transaksi WHERE kode_transaksi = '$kode_transaksi'");
 
             if ($totalP == 0) {
-                $kode = "T-". $tanggal . "-" . $i;
+                $kode = "T-" . $tanggal . "-" . $i;
                 break;
             } else {
                 $angka = $jumlah + 1;
-                $kode = "T-". $tanggal . "-" . $angka;
+                $kode = "T-" . $tanggal . "-" . $angka;
             }
-        };
+        }
+        ;
     }
 
     return $kode;
 }
 
-function getUser() {
-    if(isset($_COOKIE['DataObat'])) {
+function getUser()
+{
+    if (isset($_COOKIE['DataObat'])) {
         $iduser = dekripsi($_COOKIE['DataObat']);
         $data_user = query("SELECT * FROM user WHERE iduser = $iduser")[0];
 
@@ -438,19 +388,20 @@ function getUser() {
     return $data_user;
 }
 
-function doTransaksi($data) {
+function doTransaksi($data)
+{
     global $koneksi;
 
     $kode_transaksi = htmlspecialchars($data['kode_transaksi']);
 
-    $data_obat = query("SELECT * FROM obat ORDER BY idkategori");
+    $data_obat = query("SELECT * FROM obat");
 
     $iduser = dekripsi($_COOKIE['DataObat']);
 
     $cek_0 = 0;
-    foreach($data_obat as $daob) {
-        if($data[$daob['kode_obat']] != 0) {
-            if($daob['stok'] < $data[$daob['kode_obat']]) {
+    foreach ($data_obat as $daob) {
+        if ($data[$daob['kode_obat']] != 0) {
+            if ($daob['stok'] < $data[$daob['kode_obat']]) {
                 echo "
                     <script>
                         alert('Stok untuk " . $daob['nama_obat'] . " tersisa " . $daob['stok'] . ", sedangkan yang diminta " . $data[$daob['kode_obat']] . "');
@@ -463,7 +414,7 @@ function doTransaksi($data) {
         }
     }
 
-    if($cek_0 == 0) {
+    if ($cek_0 == 0) {
         echo "
             <script>
                 alert('Harap mengisi jumlah, minimal untuk 1 obat');
@@ -473,16 +424,14 @@ function doTransaksi($data) {
         exit();
     }
 
-    var_dump($cek_0);
-
     mysqli_query($koneksi, "INSERT INTO transaksi VALUES (NULL, CURRENT_TIMESTAMP(), '$kode_transaksi', '$iduser')");
 
     $data_transaksi = query("SELECT * FROM transaksi WHERE kode_transaksi = '$kode_transaksi'")[0];
     $id_transaksi = $data_transaksi['idtransaksi'];
 
     $berhasil = 0;
-    foreach($data_obat as $dabat) {
-        if($data[$dabat['kode_obat']] != 0) {
+    foreach ($data_obat as $dabat) {
+        if ($data[$dabat['kode_obat']] != 0) {
             $id_obat = $dabat['idobat'];
             $harga = $dabat['harga'];
             $qty = $data[$dabat['kode_obat']];
@@ -504,16 +453,17 @@ function doTransaksi($data) {
     return $berhasil;
 }
 
-function edit_detail_transaksi($data) {
+function edit_detail_transaksi($data)
+{
     global $koneksi;
 
     $iddetail_transaksi = htmlspecialchars($data['iddetail_transaksi']);
     $obat_idobat = htmlspecialchars($data['obat_idobat']);
     $oldqty = htmlspecialchars($data['oldqty']);
     $qty = htmlspecialchars($data['qty']);
-    $berhasil = 0;  
+    $berhasil = 0;
 
-    if($qty == "" || $qty == 0) {
+    if ($qty == "" || $qty == 0) {
         echo "
             <script>
                 alert('Qty tidak boleh kosong atau 0');
@@ -527,7 +477,7 @@ function edit_detail_transaksi($data) {
 
     $qty_total = $oldqty + $data_obat['stok'];
 
-    if($qty > $qty_total) {
+    if ($qty > $qty_total) {
         echo "
             <script>
                 alert('Stok untuk " . $data_obat['nama_obat'] . " tersisa " . $qty_total . ", sedangkan yang diminta " . $qty . "');

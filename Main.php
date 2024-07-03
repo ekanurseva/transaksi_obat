@@ -1,21 +1,6 @@
 <?php
 include("function.php");
 
-
-if (isset($_POST["kategori"])) {
-  if (input_kategori($_POST) > 0) {
-    echo "
-    <script>
-    alert('Input Data Berhasil');
-    document.location.href='Main.php';
-    </script>";
-  } else {
-    echo "<script>
-    alert('Data Gagal Ditambah');
-    </script>";
-  }
-}
-
 if (isset($_POST["obat"])) {
   if (input_obat($_POST) > 0) {
     echo "
@@ -30,7 +15,6 @@ if (isset($_POST["obat"])) {
   }
 }
 
-$kategori = query("SELECT * FROM kategori_obat");
 $obat = query("SELECT * FROM obat");
 
 ?>
@@ -92,23 +76,95 @@ $obat = query("SELECT * FROM obat");
         </button>
       </div>
       <div class="col-7">
-        <h1>Data Obat Admin</h1>
+        <h1>APOTEK 99 | Data Obat Admin</h1>
       </div>
       <div class="col-3" id="clock">
 
       </div>
     </div>
 
-
-
-
     <div class="contents">
       <div class="box1">
+        <div class="tab-content px-1 py-4" style="background: rgb(11, 132, 224); border-radius: 5px">
+          <div class="tab-pane fade show active deskripsi" id="obat" role="tabpanel" aria-labelledby="belum-tab">
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+              Tambah data obat
+            </button>
 
-        <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-          Tambah data obat
-        </button>
+            <div class="mt-4">
+              <div class="text-center">
+                <h4>Tabel Obat</h4>
+              </div>
+              <table class="table table-dark table-striped" id="example2">
+                <thead>
+                  <tr class="text-center custom-Font">
+                    <th scope="col">No</th>
+                    <th scope="col">Kode obat</th>
+                    <th scope="col">Nama obat</th>
+                    <th scope="col">Deskripsi</th>
+                    <th scope="col">Dosis</th>
+                    <th scope="col">Harga</th>
+                    <th scope="col">Stok</th>
+                    <th scope="col">Expired</th>
+                    <th scope="col">Kemasan</th>
+                    <th scope="col">Kategori</th>
+                    <th scope="col">Alat</th>
+                  </tr>
+                </thead>
+                <tbody style="font-size: 12.5px;">
+                  <?php $j = 1;
+                  foreach ($obat as $o):
+                    ?>
+                    <tr class="text-center">
+                      <td scope="row">
+                        <?= $j; ?>
+                      </td>
+                      <td scope="col">
+                        <?= $o['kode_obat']; ?>
+                      </td>
+                      <td scope="col">
+                        <?= $o['nama_obat']; ?>
+                      </td>
+                      <td scope="col">
+                        <?= $o['deskripsi']; ?>
+                      </td>
+                      <td scope="col">
+                        <?= $o['dosis']; ?>
+                      </td>
+                      <td scope="col">
+                        Rp
+                        <?= number_format($o['harga'], 0, ',', '.'); ?>
+                      </td>
+                      <td scope="col">
+                        <?= $o['stok']; ?>
+                      </td>
+                      <td scope="col">
+                        <?= $o['expired']; ?>
+                      </td>
+                      <td scope="col">
+                        <?= $o['kemasan']; ?>
+                      </td>
+                      <td>
+                        <?= $o['kategori']; ?>
+                      </td>
+                      <td>
+                        <a class="btn btn-primary btn-sm" href="Edit.php?id= <?= $o['idobat']; ?>">edit</a>
+                        <a href="delete_obat.php?id=<?= $o['idobat']; ?>" class="btn btn-sm btn-danger"
+                          onclick="return confirm('Apakah anda yakin ingin menghapus data?')">
+                          Hapus
+                        </a>
+                      </td>
+                    </tr>
+                    <?php
+                    $j++;
+                  endforeach;
+                  ?>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
 
         <!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -122,17 +178,9 @@ $obat = query("SELECT * FROM obat");
                 <div class="modal-body">
                   <div class="text-dark">
                     <div class="mb-2" style="width:250px">
-                      <label class="form-label text-white">Penyakit</label>
-                      <select class="boxc form-control" name="idkategori" require>
-                        <option hidden selected>--Pilih Kategori--</option>
-                        <?php
-                        foreach ($kategori as $p):
-                          ?>
-                          <option value="<?php echo $p['idkategori'] ?>"><?php echo $p['kategori'] ?></option>
-                          <?php
-                        endforeach
-                        ?>
-                      </select>
+                      <label class="form-label text-white">Kategori</label>
+                      <input type="text" name="kategori" class="form-control" id="kode_obat"
+                        placeholder="kategori obat">
                     </div>
                     <div class="mb-2 text-white" style="width:250px">
                       <label class="form-label">kode obat :</label>
@@ -176,153 +224,6 @@ $obat = query("SELECT * FROM obat");
             </div>
           </div>
         </div>
-
-
-        <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary ms-3" data-bs-toggle="modal" data-bs-target="#kategori">
-          Tambah Kategori
-        </button>
-        <!-- Modal -->
-        <form method="post">
-          <div class="modal fade" id="kategori" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h1 class="modal-title fs-5 text-dark" id="kategori">Tambah Kategori</h1>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                  <div class="text-dark">
-
-                    <div class="mb-2" style="width:250px">
-                      <label for="kategori" class="form-label">Tambahkan Kategori :</label>
-                      <input type="text" class="form-control" name="kategori" id="kategori" placeholder="kategori">
-                    </div>
-
-                  </div>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                  <button type="submit" name="kategori" class="btn btn-primary">Save changes</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </form>
-        <!-- Modal Selesai -->
-
-        <div class="mb-2">
-          <div class="text-center">
-            <h4>Tabel Kategori</h4>
-          </div>
-          <table class="table table-dark table-striped" id="example">
-            <thead>
-              <tr class="text-center custom-Font">
-                <th scope="col" class="text-center">No</th>
-                <th scope="col" class="text-center">Kategori Obat</th>
-                <th scope="col" class="text-center">Alat</th>
-              </tr>
-            </thead>
-            <tbody>
-              <?php $i = 1; foreach ($kategori as $k):
-                ?>
-                <tr class="text-center">
-                  <th scope="row">
-                    <?= $i; ?>
-                  </th>
-                  <th scope="col">
-                    <?= $k['kategori']; ?>
-                  </th>
-                  <td>
-                    <a class="btn btn-primary btn-sm" href="EditKategori.php?id= <?= $k['idkategori']; ?>">edit</a>
-                    <a href="delete_kategori.php?id=<?= $k['idkategori']; ?>" class="btn btn-sm btn-danger"
-                      onclick="return confirm('Apakah anda yakin ingin menghapus data?')">
-                      Hapus
-                    </a>
-                  </td>
-                </tr>
-                <?php
-                $i++;
-              endforeach;
-              ?>
-            </tbody>
-          </table>
-        </div>
-
-        <div class="mt-4">
-          <div class="text-center">
-            <h4>Tabel Obat</h4>
-          </div>
-          <table class="table table-dark table-striped" id="example2">
-            <thead>
-              <tr class="text-center custom-Font">
-                <th scope="col">No</th>
-                <th scope="col">Kode obat</th>
-                <th scope="col">Nama obat</th>
-                <th scope="col">Deskripsi</th>
-                <th scope="col">Dosis</th>
-                <th scope="col">Harga</th>
-                <th scope="col">Stok</th>
-                <th scope="col">Expired</th>
-                <th scope="col">Kemasan</th>
-                <th scope="col">Kategori</th>
-                <th scope="col">Alat</th>
-              </tr>
-            </thead>
-            <tbody>
-              <?php $j = 1; foreach ($obat as $o):
-                ?>
-                <tr class="text-center">
-                  <td scope="row">
-                    <?= $j; ?>
-                  </td>
-                  <td scope="col">
-                    <?= $o['kode_obat']; ?>
-                  </td>
-                  <td scope="col">
-                    <?= $o['nama_obat']; ?>
-                  </td>
-                  <td scope="col" style="font-size: 12.5px;">
-                    <?= $o['deskripsi']; ?>
-                  </td>
-                  <td scope="col">
-                    <?= $o['dosis']; ?>
-                  </td>
-                  <td scope="col">
-                    Rp
-                    <?= number_format($o['harga'], 0, ',', '.'); ?>
-                  </td>
-                  <td scope="col">
-                    <?= $o['stok']; ?>
-                  </td>
-                  <td scope="col">
-                    <?= $o['expired']; ?>
-                  </td>
-                  <td scope="col">
-                    <?= $o['kemasan']; ?>
-                  </td>
-                  <?php
-                  $idkategori = $o['idkategori'];
-                  $nama_kategori = query("SELECT kategori FROM kategori_obat WHERE idkategori = $idkategori")[0];
-                  ?>
-                  <td>
-                    <?= $nama_kategori['kategori']; ?>
-                  </td>
-                  <td>
-                    <a class="btn btn-primary btn-sm" href="Edit.php?id= <?= $o['idobat']; ?>">edit</a>
-                    <a href="delete_obat.php?id=<?= $o['idobat']; ?>" class="btn btn-sm btn-danger"
-                      onclick="return confirm('Apakah anda yakin ingin menghapus data?')">
-                      Hapus
-                    </a>
-                  </td>
-                </tr>
-                <?php
-                $j++;
-              endforeach;
-              ?>
-            </tbody>
-          </table>
-        </div>
       </div>
     </div>
   </div>
@@ -342,9 +243,6 @@ $obat = query("SELECT * FROM obat");
   <script>
     $(document).ready(function () {
       $('#example').DataTable();
-    });
-    $(document).ready(function () {
-      $('#example2').DataTable();
     });
   </script>
 

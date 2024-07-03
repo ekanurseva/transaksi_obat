@@ -22,7 +22,7 @@ $data_transaksi = query("SELECT * FROM transaksi WHERE idtransaksi = $id_transak
 
     <div class="content m-0 atasan">
         <div class="container m-0 atasan" style="max-width:100%;border-radius: 10% 10%;">
-            <h1>Detail transaksi admin</h1>
+            <h1>APOTEK 99 | Detail Transaksi</h1>
 
             <div class="mt-2 mb-3" id="clock"></div>
         </div>
@@ -43,6 +43,10 @@ $data_transaksi = query("SELECT * FROM transaksi WHERE idtransaksi = $id_transak
             <label for="exampleFormControlInput1" class="form-label">
                 <?= $data_transaksi['kode_transaksi']; ?>
             </label>
+            <button class="btn btn-sm btn-success">
+                <a class="text-decoration-none text-white" href="cetak_struk.php?id=<?= $_GET['id']; ?>"
+                    target="_blank">Cetak Struk</a>
+            </button>
             <table class="table table-dark table-striped inner-table" id="transactionTable">
                 <tfoot>
                     <table class="table table-dark table-striped" id="example">
